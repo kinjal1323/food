@@ -49,23 +49,22 @@ function Section2() {
         </Container>
       </section>
 
-     
-      <section className="about_wrapper">
-        <Container> 
+      <section className="about_wrapper py-5">
+        <Container>
           <Row className="justify-content-center">
-            {mockData.map((cardData, index) => ( // Looping through mockData array to create cards
-              <Col md={6} lg={4} key={index} className="text-center"> 
-              {/*Bootstrap Grid , medium screens 6 out of 12,large screens 4 out of 12 grid,index is usually taken from .map()*/}
-                <div className="about_box"> 
-                  <div className="about_icon"> 
+            {mockData.map((cardData, index) => (
+              <Col md={6} lg={4} key={index} className="text-center mb-4 d-flex">
+                <div className="about_box p-4 shadow rounded w-100 d-flex flex-column align-items-center">
+                  <div className="about_icon mb-3">
                     <img
                       src={cardData.image}
                       className="img-fluid"
                       alt="icon"
+                      style={{ maxWidth: "80px" }}
                     />
                   </div>
-                  <h4>{cardData.title}</h4>
-                  <p>{cardData.paragraph}</p> 
+                  <h4 className="mb-2">{cardData.title}</h4>
+                  <p className="text-muted flex-grow-1 text-center">{cardData.paragraph}</p>
                 </div>
               </Col>
             ))}

@@ -17,9 +17,31 @@ function Login() {
       return;
     }
 
-    const trimmedEmail = email.trim().toLowerCase();
-    console.log("🟢 Storing Logged-in Email:", trimmedEmail);
-    localStorage.setItem("userEmail", trimmedEmail); // Store email
+    const trimmedEmail = email.trim().toLowerCase(); // Ensure consistency
+
+    // Retrieve stored users from localStorage
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // If no users exist, allow login without validation
+    if (users.length === 0) {
+      console.log("🔵 No users found. Allowing direct login.");
+      localStorage.setItem("userEmail", trimmedEmail); 
+      navigate("/Menu");
+      return;
+    }
+
+    // Check if the user exists
+    const existingUser = users.find(user => user.email === trimmedEmail && user.password === password);
+
+    if (!existingUser) {
+      setError("Invalid email or password.");
+      return;
+    }
+
+    // Store logged-in user email in localStorage
+    console.log("🟢 Logged in:", trimmedEmail);
+    localStorage.setItem("userEmail", trimmedEmail); 
+
     navigate("/Menu");
   };
 

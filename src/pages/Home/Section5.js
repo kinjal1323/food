@@ -1,42 +1,47 @@
-import React from "react"; // Import React to define the component
-import { Container, Row, Col } from "react-bootstrap"; // Import Bootstrap components for layout
-import { Link } from "react-router-dom"; // Import Link for navigation
+import React from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Section5() {
   return (
-    // Contact Section Wrapper
     <section className="contact_section">
-      <Container> {/* Bootstrap container for responsiveness */}
-      
-        
-        <row>  
-          <br></br> 
-          <br></br>
-        </row>
-
-        <Row className="justify-content-center">
-          <Col sm={8} className="text-center">
+      <Container>
+        {/* Spacer Row */}
+        <Row>
+          <Col>
+            <br />
+            <br />
+          </Col>
+        </Row>
+        <Row className="justify-content-center mt-4">
+          <Col sm={8} className="d-flex justify-content-center">
+            <video width="20%" height="20%" autoPlay muted loop className="img-fluid">
+              <source src="/assets/del.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </Col>
+        </Row>
+        <Row className="justify-content-center text-center">
+          <Col sm={8}>
             <h2>Fastest Delivery</h2>
-            <p>
-              We Guarantee fast delivery. Save your Time, Rupee, and Taste.
-            </p>
-
-          
+            <p>We Guarantee fast delivery. Save your Time, Rupee, and Taste.</p>
             <Link to="/" className="nobtn">
               Call: 999-888-7777
             </Link>
           </Col>
         </Row>
 
-
-        <row>  
-          <br></br> 
-          <br></br> 
-        </row>
-
+      
+        {/* Spacer Row */}
+        <Row>
+          <Col>
+            <br />
+            <br />
+          </Col>
+        </Row>
       </Container>
     </section>
   );
 }
 
-export default Section5; 
+export default Section5;
