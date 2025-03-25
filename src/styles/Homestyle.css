@@ -1,0 +1,133 @@
+.hero_section {
+  position: relative;
+  background: url("../Food_Assets/assets/hero/hero-1.jpg") no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+  padding-top: 170px;
+  padding-bottom: 90px;
+}
+.hero_section .price_badge {
+  background: url("../Food_Assets/assets/hero/price-badge-yellow.png") no-repeat center
+    center;
+  background-size: cover;
+  position: absolute;
+  top: -20px;
+  right: 5px;
+  width: 180px;
+  height: 176px;
+  text-align: center;
+}
+.hero_section .h3_{
+  color: white;
+}
+.hero_section .badge_text {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.hero_section .badge_text .h4_xs {
+  font-size: 1.875rem;
+  font-weight: 600;
+  line-height: 1;
+}
+.hero_section .badge_text .h3_lg {
+  font-size: 2.875rem;
+  font-weight: 600;
+  line-height: 1;
+}
+.hero_section .hero_text h1 {
+  font-family: var(--lilita-font);
+  font-size: 7rem;
+  line-height: 1;
+  margin-bottom: 15px;
+  letter-spacing: 3px;
+}
+.hero_section .hero_text h2 {
+  font-family: var(--lilita-font);
+  font-size: 2.5rem;
+  line-height: 1;
+  margin-bottom: 20px;
+  letter-spacing: 3px;
+}
+.hero_section .hero_text p {
+  padding: 0 5%;
+}
+
+.btn1 ,.btn2 {
+  display: inline-block;
+  background: var(--yellow); /* Use a color variable or a specific color like #FFC107 */
+  color:black;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 10px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+}
+
+/* Home About 2.0 */
+.about_section {
+  padding-top: 80px;
+  padding-bottom: 300px;
+  background: url("../Food_Assets/assets/about/about-1.jpg") no-repeat center center;
+  background-size: cover;
+  width: 100%;
+}
+.about_section h2 {
+  font-size: 3.5rem;
+}
+.about_section p {
+  color: var(--grey);
+  padding: 20px 30px;
+  font-size: 19px;
+}
+.about_wrapper {
+  background: var(--yellow);
+  padding-top: 70px;
+  padding-bottom: 30px;
+}
+.about_box .about_icon img {
+  max-width: 25%;
+}
+.about_box h4 {
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: 0.5008px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+.about_box p {
+  padding: 0 20px;
+}
+
+
+/* Home Menu 3.0 */
+.menu_section {
+  padding-top: 100px;
+  padding-bottom: 100px;
+  color: white;
+  background: url("../Food_Assets/assets/hero/hero-1.jpg") no-repeat center center;
+}
+
+
+.menu_section h2 {
+  font-size: 3.5rem;
+  color: white;
+}
+.menu_section .para {
+  color: white;
+  padding: 10px 100px;
+  font-size: 19px;
+}
+
+.contact_section{
+  color: white;
+  background: url("../Food_Assets/assets/hero/hero-1.jpg") no-repeat center center;
+}
+.nobtn{
+  color: black;
+  background-color: yellow;
+}

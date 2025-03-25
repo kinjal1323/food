@@ -1,0 +1,62 @@
+.blog_section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300vh;
+  background: url("../Food_Assets/assets/hero/hero-1.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+.blog_section h5 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: white;
+  margin-top: 20px;
+}
+
+.blog_section p {
+  font-size: 1rem;
+  color: white;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 10px auto 20px;
+  padding: 0 15px;
+}
+
+.user_img {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.user_img img {
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  object-fit: cover;
+  border: 3px solid #ddd;
+  transition: transform 0.3s ease-in-out;
+}
+
+.user_img img:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .blog_section h5 {
+    font-size: 1rem;
+  }
+
+  .blog_section p {
+    font-size: 0.9rem;
+  }
+
+  .user_img img {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+.blog_section .a .b .c {
+  border-radius: 100px;
+}

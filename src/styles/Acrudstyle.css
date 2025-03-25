@@ -1,0 +1,134 @@
+/* General styles */
+.ac{
+  font-family: Arial, sans-serif;
+  margin: 50px;
+  padding: 0;
+}
+
+/* Main container */
+.acrud-container {
+  display: flex;
+  margin: 10px;
+
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Square box styling */
+.box {
+  width: 400px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px;
+  text-align: center;
+}
+
+/* Insert and Delete sections */
+.insert-box, .delete-box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.insert-box {
+  border: 3px solid #28a745;
+}
+
+.delete-box {
+  border: 3px solid #dc3545;
+}
+
+.update-box{
+  border: 3px solid  orange;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Input fields */
+input, textarea {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+/* Buttons */
+button {
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Insert and delete buttons */
+.Insert_btn {
+  background-color: #28a745;
+}
+
+.Insert_btn:hover {
+  background-color: #218838;
+}
+
+.delete_btn {
+  background-color: #dc3545;
+}
+
+.delete_btn:hover {
+  background-color: #c82333;
+}
+
+/* Error message */
+.error {
+  color: red;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Uploaded image preview */
+.uploaded-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+/* Navigation buttons */
+.b1, .b2, .b3, .b4, .b5{
+  height: 40px;
+  width: 120px;
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #e6b800;
+  color: black;
+  text-decoration: none;
+  border-radius: 6px;
+  margin: 10px;
+  transition: 0.3s;
+}
+
+.btn1:hover {
+  background-color: #138496;
+}

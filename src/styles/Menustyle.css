@@ -1,0 +1,114 @@
+.menu_section {
+  background: url("../Food_Assets/assets/hero/hero-1.jpg") no-repeat center center; 
+  background-size: cover; /* Covers the entire section */
+  padding: 20px; 
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping of cards to the next row if needed */
+  justify-content: center; /* Centers the cards in the container */
+  gap: 20px; /* Adds spacing between cards */
+}
+
+.card {
+  width: 280px; 
+  height: 450px; 
+  display: flex;
+  flex-direction: column; /* Arranges elements vertically */
+  overflow: hidden; 
+  border: 1px solid #ddd; 
+  border-radius: 8px;
+  background: white; 
+}
+
+.card .card-img-top {
+  width: 100%; 
+  height: 180px; 
+  object-fit: cover; /* Ensures the image maintains its aspect ratio */
+  transition: transform 500ms ease-in-out; /* Smooth zoom effect on hover */
+}
+
+.card .card-body {
+  flex-grow: 1; 
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-between; 
+  padding: 15px;
+  height: 100%; 
+}
+
+.card .card-title {
+  font-size: 1.2rem;
+  font-weight: bold; 
+  text-align: center; 
+}
+
+.card .card-text {
+  color: black; 
+  font-size: 14px;
+  text-align: center; 
+  flex-grow: 1; /* Allows text to expand dynamically */
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  min-height: 60px; 
+  max-height: 60px; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  white-space: nowrap; /* Keeps text on a single line */
+}
+
+.card .item_rating {
+  display: flex;
+  justify-content: center; 
+  margin-bottom: 5px; 
+}
+
+.add_to_cart a {
+  background-color: #e6b800;
+  color: black;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 300ms ease-in-out;
+  opacity: 0; /* Initially hidden */
+  visibility: hidden; /* Prevents button from taking up space */
+}
+
+/* Show button on hover */
+.card:hover .add_to_cart a {
+  opacity: 1; /* Makes it visible */
+  visibility: visible;
+  transform: translateY(-5px); /* Moves the button slightly up */
+}
+
+.add_to_cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+
+.card:hover .add_to_cart a {
+  transform: translateY(-5px); /* Moves the button slightly up */
+}
+/* Activates when the screen width is 768 pixels or less */
+@media (max-width: 768px) {  
+  .card {
+    width: 250px;
+    height: 420px; 
+  }
+}
+
+/* Activates when the screen width is 480 pixels or less */
+@media (max-width: 480px) {
+  .card {
+    width: 100%; 
+    height: auto; 
+  }
+}

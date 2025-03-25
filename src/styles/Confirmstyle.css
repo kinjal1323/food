@@ -1,0 +1,94 @@
+.con{
+  
+  background :white;
+  margin-top: 0px;
+
+}
+.confirm-container {
+
+  max-width: 700px;
+  max-height: 1000;
+  margin-left: 180px;
+  padding: 30px;
+  background :url("../Food_Assets/assets/hero/hero-1.jpg") center center;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  background-size: cover;
+  text-align: center;
+}
+
+/* FLEXBOX FOR CUSTOMER + PAYMENT DETAILS */
+.details-container {
+  color: white;
+  display: flex;
+  margin-top: 50px;
+  justify-content: space-between;
+  align-items: flex-start;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.customer-details, .payment-details {
+  width: 48%;
+ color: white;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.order-summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: white;
+  margin-top: 10px;
+}
+
+.order-summary-table th, .order-summary-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  color: black;
+  text-align: center;
+}
+
+.order-summary-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.order-summary-table img {
+  border-radius: 5px;
+}
+
+.total-amount {
+  margin-top: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  color: black;
+}
+
+.total-amount span {
+  color: black;
+}
+
+.order{
+  background: yellow;
+  color: black;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+
+.new{
+  background: #0056b3;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}

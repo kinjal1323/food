@@ -1,0 +1,103 @@
+/* General container styling */
+.cart-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background: url("../Food_Assets/assets/hero/hero-1.jpg") center center;
+  background-size: cover;
+  text-align: center;
+}
+
+/* Title Styling */
+h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Cart List Styling */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Cart Items */
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Product Image */
+.cart-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 2px solid #ddd;
+}
+
+/* Product Title */
+.cart-item span {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #444;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Quantity Input */
+.quantity-input {
+  width: 60px;
+  padding: 5px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  text-align: center;
+}
+
+/* Total Price */
+.cart-total {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #222;
+  padding: 10px;
+  border-top: 2px solid #ddd;
+}
+.cancel-button {
+  height: 35px;
+  width: 50px;
+}
+
+/* Payment Button */
+.pay-button {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  background: #ffcc00;
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: black;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.pay-button:hover {
+  background: #ff9900;
+  color: white;
+}
