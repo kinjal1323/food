@@ -33,7 +33,7 @@ function Userdata() {
   return (
     <div className="Userdata-container">
       <div className="Userdata-box">
-        <h2 className="ud-title">User Data</h2>
+        <h2 className="title">User Data</h2>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <label>Name:</label>

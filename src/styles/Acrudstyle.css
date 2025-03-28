@@ -25,10 +25,13 @@
   margin: 20px;
   text-align: center;
 }
-
+.ph{
+  width: 250px;
+  height: 250px;
+}
 /* Insert and Delete sections */
-.insert-box, .delete-box{
-  display: flex;
+.insert-box, .delete-box, .update-box, .contact-box {
+  display: block;
   flex-direction: column;
   align-items: center;
   padding: 20px;
@@ -43,9 +46,15 @@
   border: 3px solid #dc3545;
 }
 
-.update-box{
+.update-box {
   border: 3px solid  orange;
+
 }
+
+.contact-box{
+  border: 3px solid  lightblue;
+}
+
 
 /* Form styling */
 form {
@@ -116,9 +125,9 @@ button:hover {
 }
 
 /* Navigation buttons */
-.b1, .b2, .b3, .b4, .b5{
+.b1, .b2, .b3, .b4, .b5, .b6{
   height: 40px;
-  width: 120px;
+  width: 150px;
   display: inline-block;
   padding: 10px 15px;
   background-color: #e6b800;
