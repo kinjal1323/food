@@ -1,16 +1,11 @@
 
 .orders-container {
     max-width: 1000px;
-
-    margin-top: 80px ;
-    margin-left:80px;
-    margin-right: 80px;
-    margin-bottom: 80px;
+    margin: auto  ;
     padding: 130px;
     background: url("../Food_Assets/assets/hero/hero-1.jpg") center center;
   }
   
- 
   .order-box {
     background: #ffffff;
     border: 2px solid #ddd;

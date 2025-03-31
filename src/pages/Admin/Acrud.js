@@ -1,214 +1,174 @@
 import { useState, useEffect } from "react";
-import { Card, CardContent } from "../../component/ui/Card";
 import { Button } from "../../component/ui/Button";
 import { Input } from "../../component/ui/Input";
-import Textarea from "../../component/ui/Textarea";
-import { Link } from "react-router-dom";
 import "../../styles/Acrudstyle.css";
-import ph from "../../Food_Assets/th.jpg"
-
+import menuData from "../../pages/Menu/Section1"; // Importing menu.js
+import { useNavigate } from "react-router-dom"; // Corrected import
 
 const Acrud = () => {
-  // State for menu items
-  const [formData, setFormData] = useState({
-    image: null,
-    rating: 0,
-    title: "",
-    paragraph: "",
-    price: "",
-  });
+    const [menuItems, setMenuItems] = useState([]);
+    const [formData, setFormData] = useState({ image: "", title: "", paragraph: "", price: "", rating: "" });
+    const [search, setSearch] = useState("");
+    const [updateIndex, setUpdateIndex] = useState(null);
+    const navigate = useNavigate(); // Use navigate function
 
-  const [deleteData, setDeleteData] = useState({ title: "", price: "" });
-  const [updateIndex, setUpdateIndex] = useState("");
-  const [storedData, setStoredData] = useState([]); // Stores CRUD data
-  const [contactData, setContactData] = useState([]); // Stores all contact form data
-  const [error, setError] = useState("");
+    // Load menu data from menu.js or localStorage
+    useEffect(() => {
+        const savedMenu = JSON.parse(localStorage.getItem("menuItems")) || menuData.items;
+        if (Array.isArray(savedMenu)) {
+            setMenuItems(savedMenu);
+        }
+    }, []);
 
-  // Load data from localStorage on mount
-  useEffect(() => {
-    const savedContactData = JSON.parse(localStorage.getItem("formdata"));
-    const savedMenuData = JSON.parse(localStorage.getItem("menuData"));
-  
-    setStoredData(Array.isArray(savedMenuData) ? savedMenuData : []);
-    setContactData(Array.isArray(savedContactData) ? savedContactData : []);
-  }, []);
+    // Save data to localStorage (simulate menu.js modification)
+    const updateMenuStorage = (updatedMenu) => {
+        localStorage.setItem("menuItems", JSON.stringify(updatedMenu));
+        setMenuItems(updatedMenu);
+    };
 
-  // Handle input changes for menu items
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+    // Handle input change
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
 
-  // Handle delete input changes
-  const handleDeleteInputChange = (e) => {
-    const { name, value } = e.target;
-    setDeleteData((prev) => ({ ...prev, [name]: value }));
-  };
+    // Handle image upload
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setFormData((prev) => ({ ...prev, image: reader.result }));
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
-  // Handle image upload
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setFormData((prev) => ({ ...prev, image: file ? URL.createObjectURL(file) : null }));
-  };
+    // Insert new menu item
+    const handleInsert = (e) => {
+        e.preventDefault();
+        if (!formData.image || !formData.title || !formData.paragraph || !formData.price || !formData.rating) {
+            return alert("All fields are required!");
+        }
+        const newItem = { id: Date.now(), ...formData };
+        const updatedMenu = [...menuItems, newItem];
+        updateMenuStorage(updatedMenu);
+        setFormData({ image: "", title: "", paragraph: "", price: "", rating: "" });
+        alert("Menu item added successfully!");
+    };
 
-  // Insert menu item
-  const handleInsert = (e) => {
-    e.preventDefault();
-    if (!formData.image || !formData.title || !formData.paragraph || !formData.price || formData.rating === 0) {
-      setError("All fields are required!");
-      return;
-    }
-    setError("");
-    const newItem = { id: `new-${Date.now()}`, ...formData, price: parseFloat(formData.price), rating: parseFloat(formData.rating) };
-    const updatedData = [...storedData, newItem];
-    localStorage.setItem("menuData", JSON.stringify(updatedData));
-    setStoredData(updatedData);
-    setFormData({ image: null, rating: 0, title: "", paragraph: "", price: "" });
-    alert("Item insert successfully!");
-  };
+    // Delete menu item
+    const handleDelete = (index) => {
+        const updatedMenu = menuItems.filter((_, i) => i !== index);
+        updateMenuStorage(updatedMenu);
+        alert("Menu item deleted successfully!");
+    };
 
-  // Delete menu item
-  const handleDelete = (e) => {
-    e.preventDefault();
-    const updatedData = storedData.filter(item => !(item.title === deleteData.title && item.price === parseFloat(deleteData.price)));
-    localStorage.setItem("menuData", JSON.stringify(updatedData));
-    setStoredData(updatedData);
-    setDeleteData({ title: "", price: "" });
-    alert("Item deleted successfully!");
-  };
+    // Select item for update
+    const handleEdit = (index) => {
+        setUpdateIndex(index);
+        setFormData({ ...menuItems[index] });
+    };
 
-  // Handle update selection
-  const handleUpdateIndexChange = (e) => {
-    setUpdateIndex(e.target.value);
-    const index = parseInt(e.target.value, 10);
-    if (!isNaN(index) && storedData[index]) {
-      setFormData(storedData[index]);
-    } else {
-      setFormData({ image: null, rating: 0, title: "", paragraph: "", price: "" });
-    }
-  };
+    // Update menu item
+    const handleUpdate = (e) => {
+        e.preventDefault();
+        if (updateIndex === null) return alert("No menu item selected for update.");
 
-  // Update menu item
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    const index = parseInt(updateIndex, 10);
-  
-    if (isNaN(index) || index < 0 || index >= storedData.length) {
-      alert("Invalid index! Please enter a correct index.");
-      return;
-    }
-  
-    // Create a new array instead of mutating the existing one
-    const updatedData = [...storedData];
-    updatedData[index] = { ...updatedData[index], ...formData, price: parseFloat(formData.price), rating: parseFloat(formData.rating) };
-  
-    // Update localStorage and state
-    localStorage.setItem("menuData", JSON.stringify(updatedData));
-    setStoredData(updatedData);
-    setUpdateIndex("");
-    setFormData({ image: null, rating: 0, title: "", paragraph: "", price: "" });
-  
-    alert("Item updated successfully!");
-  };
-  const handleContactSubmit = (formValues) => {
-    // Retrieve existing data
-    const Data = localStorage.getItem("formdata");
-  
-    // Ensure it's a valid array
-    let savedContactData;
-    try {
-      savedContactData = JSON.parse(Data);
-      if (!Array.isArray(savedContactData)) {
-        savedContactData = [];
-      }
-    } catch (error) {
-      savedContactData = [];
-    }
-  
-    // Add the new form values
-    const updatedContactData = [...savedContactData, formValues];
-  
-    // Save to localStorage and update state
-    localStorage.setItem("formdata", JSON.stringify(updatedContactData));
-    setContactData(updatedContactData);
-  };
-  
+        const updatedItems = menuItems.map((item, index) =>
+            index === updateIndex ? { ...formData } : item
+        );
 
-  return (
-    <div className="ac"><center>
-      <h2>Hello Mr, Admin</h2>
-    <img src={ph} className="ph"></img></center>
-      <center>
-        <Link to="/Acrud" onClick={() => window.scrollTo(0, 570)} className="b1">Insert</Link>
-        <Link to="/Acrud" onClick={() => window.scrollTo(0, 900)} className="b2">Delete</Link>
-        <Link to="/Acrud" onClick={() => window.scrollTo(0, 1280)} className="b3">Update</Link>
-        <Link to="/Menu" className="b4">Read</Link>
-        <Link to="/Orders" className="b5">All Orders</Link>
-        <Link to="/Acrud" onClick={() => window.scrollTo(0, 1400)} className="b6">Contact us details</Link>
-        <Link to="/" className="b6">Home</Link>
-      </center>
+        updateMenuStorage(updatedItems);
+        setUpdateIndex(null);
+        setFormData({ image: "", title: "", paragraph: "", price: "", rating: "" });
+        alert("Menu item updated successfully!");
+    };
 
-      <Card className="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4">
-        <CardContent>
-          <div className="acrud-container">
-            
-            {/* Insert Form */}
-            <div className="box insert-box">
-              <h2>Insert Item</h2>
-              <form onSubmit={handleInsert}>
-                <input type="file" accept="image/*" onChange={handleImageChange} />
-                {formData.image && <img src={formData.image} alt="Uploaded" className="uploaded-image" />}
-                <Input type="text" name="title" placeholder="Title" value={formData.title} onChange={handleInputChange} />
-                <Textarea name="paragraph" placeholder="Paragraph" value={formData.paragraph} onChange={handleInputChange} />
-                <Input type="text" name="price" placeholder="Price" value={formData.price} onChange={handleInputChange} />
-                <Input type="number" name="rating" placeholder="Rating (1-5)" min="1" max="5" value={formData.rating} onChange={handleInputChange} />
-                <Button type="submit">Insert</Button>
-              </form>
+    return (
+        <div className="admin-container">
+            {/* Header Navigation */}
+            <div className="admin-header">
+                <h2>Food Menu Admin</h2>
+             </div>
+
+            {/* Menu Items Section */}
+            <div className="table-container">
+                <h2 className="table-title">🍽️ Menu Items</h2>
+                <Button className="back-btn" onClick={() => navigate("/Home")}> Back</Button>
+
+                {/* Search Bar */}
+                <Input
+                    type="text"
+                    className="search-input"
+                    placeholder="Search menu items..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+
+                {/* Insert/Update Form */}
+                <div className="box insert-box">
+                    <h2>{updateIndex !== null ? "Update Menu Item" : "Add Menu Item"}</h2>
+                    <form onSubmit={updateIndex !== null ? handleUpdate : handleInsert}>
+                        <input type="file" accept="image/*" onChange={handleImageChange} classname="img" />
+                        {formData.image && <img src={formData.image} alt="Uploaded" className="uploaded-image" />}
+
+                        <Input type="text" name="title" placeholder="Title" value={formData.title} onChange={handleInputChange} />
+                        <Input type="text" name="paragraph" placeholder="Description" value={formData.paragraph} onChange={handleInputChange} />
+                        <Input type="number" name="price" placeholder="Price" value={formData.price} onChange={handleInputChange} />
+                        <Input type="number" name="rating" placeholder="Rating (1-5)" value={formData.rating} onChange={handleInputChange} />
+                        <Button type="submit">{updateIndex !== null ? "Update" : "Insert"}</Button>
+                    </form>
+                </div>
+
+                {/* Table */}
+                <table className="styled-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Rating</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {menuItems.length > 0 ? (
+                            menuItems
+                                .filter((item) => item.title.toLowerCase().includes(search.toLowerCase()))
+                                .map((item, index) => (
+                                    <tr key={item.id}>
+                                        <td>{index + 1}</td>
+                                        <td><img src={item.image} alt={item.title} style={{ width: "50px", height: "50px" }} /></td>
+                                        <td>{item.title}</td>
+                                        <td>{item.paragraph}</td>
+                                        <td>${item.price}</td>
+                                        <td>⭐ {item.rating}</td>
+                                        <td>
+                                            <Button className="edit-btn" onClick={() => handleEdit(index)}>✏️</Button>
+                                            <Button className="delete-btn" onClick={() => handleDelete(index)}>❌</Button>
+                                        </td>
+                                    </tr>
+                                ))
+                        ) : (
+                            <tr>
+                                <td colSpan="7">No menu items found.</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+
+                {/* Show Final Menu Button */}
+                <div className="show-menu-container">
+                    <Button className="show-menu-btn" onClick={() => navigate("/menu")}>
+                        Show Menu 📜
+                    </Button>
+                </div>
             </div>
-
-            {/* Delete Form */}
-            <div className="box delete-box">
-              <h2>Delete Item</h2>
-              <form onSubmit={handleDelete}>
-                <Input type="text" name="title" placeholder="Title" value={deleteData.title} onChange={handleDeleteInputChange} />
-                <Input type="text" name="price" placeholder="Price" value={deleteData.price} onChange={handleDeleteInputChange} />
-                <Button type="submit">Delete</Button>
-              </form>
-            </div>
-
-            {/* Update Form */}
-            <div className="box update-box">
-              <h2>Update Item</h2>
-              <form onSubmit={handleUpdate}>
-                <Input type="text" name="index" placeholder="Enter Index" value={updateIndex} onChange={handleUpdateIndexChange} />
-                <Input type="text" name="title" placeholder="Title" value={formData.title} onChange={handleInputChange} />
-                <Textarea name="paragraph" placeholder="Paragraph" value={formData.paragraph} onChange={handleInputChange} />
-                <Input type="text" name="price" placeholder="Price" value={formData.price} onChange={handleInputChange} />
-                <Input type="number" name="rating" placeholder="Rating (1-5)" min="1" max="5" value={formData.rating} onChange={handleInputChange} />
-                <Button type="submit">Update</Button>
-              </form>
-            </div>
-            {/* Contact Form Data */}
-            {contactData.length > 0 && (
-              <div className="contact-box">
-                <h2>All Contact Form Submissions</h2>
-                {contactData.map((contact, index) => (
-                  <div key={index} className="contact-item">
-                    <p><strong>Name:</strong> {contact.name}</p>
-                    <p><strong>Company:</strong> {contact.company}</p>
-                    <p><strong>Email:</strong> {contact.email}</p>
-                    <p><strong>Phone:</strong> {contact.phone}</p>
-                    <p><strong>Message:</strong> {contact.message}</p>
-                    <hr />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
+        </div>
+    );
 };
 
 export default Acrud;

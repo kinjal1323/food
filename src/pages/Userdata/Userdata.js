@@ -7,7 +7,6 @@ function Userdata() {
   const location = useLocation();
   const { cart, total } = location.state || { cart: [], total: 0 };
 
-  // ✅ Correct state declaration (including email)
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -15,7 +14,20 @@ function Userdata() {
     address: "",
   });
 
-  // ✅ Fix handleChange function
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    let tempErrors = {};
+    if (!userData.name.trim()) tempErrors.name = "Name is required";
+    if (!userData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/))
+      tempErrors.email = "Invalid email format";
+    if (!userData.phone.match(/^\d{10}$/))
+      tempErrors.phone = "Phone number must be 10 digits";
+    if (!userData.address.trim()) tempErrors.address = "Address is required";
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
+
   const handleChange = (e) => {
     setUserData({
       ...userData,
@@ -25,9 +37,9 @@ function Userdata() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // ✅ Redirect to Payment.js with user data
-    navigate("/Payment", { state: { cart, total, userData } });
+    if (validate()) {
+      navigate("/Payment", { state: { cart, total, userData } });
+    }
   };
 
   return (
@@ -42,9 +54,9 @@ function Userdata() {
               name="name"
               value={userData.name}
               onChange={handleChange}
-              required
               className="input-field"
             />
+            {errors.name && <p className="error">{errors.name}</p>}
           </div>
 
           <div className="input-group">
@@ -54,9 +66,9 @@ function Userdata() {
               name="email"
               value={userData.email}
               onChange={handleChange}
-              required
               className="input-field"
             />
+            {errors.email && <p className="error">{errors.email}</p>}
           </div>
 
           <div className="input-group">
@@ -66,9 +78,9 @@ function Userdata() {
               name="phone"
               value={userData.phone}
               onChange={handleChange}
-              required
               className="input-field"
             />
+            {errors.phone && <p className="error">{errors.phone}</p>}
           </div>
 
           <div className="input-group">
@@ -77,10 +89,10 @@ function Userdata() {
               name="address"
               value={userData.address}
               onChange={handleChange}
-              required
               className="input-field"
               rows="4"
             ></textarea>
+            {errors.address && <p className="error">{errors.address}</p>}
           </div>
 
           <button type="submit" className="login-button">

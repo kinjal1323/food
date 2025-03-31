@@ -16,7 +16,14 @@ function Admin() {
       setError("Please fill in all fields.");
       return;
     }
-
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long.");
+      return;
+    }
+    if((email != ("kinjalsiddhapuria@gmail.com") ||("p@gmail.com")) && (password !=("admin12345678"))){
+      setError("you are not admin");
+    return; 
+    }
     navigate("/Acrud");
   };
 
@@ -27,21 +34,23 @@ function Admin() {
         {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="input-group">
-            <label className="label-center">Email</label>
+          <h4>Email</h4>
             <input
               type="email"
               className="input-field"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter email"
             />
           </div>
           <div className="input-group">
-            <label className="label-center">Password</label>
+          <h4>Password</h4>
             <input
               type="password"
               className="input-field"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter password"
             />
           </div>
 

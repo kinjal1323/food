@@ -33,11 +33,11 @@
 
 .label-center {
   display: block;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 6px;
-  color: #374151;
+  color: black;
 }
 
 .input-field {

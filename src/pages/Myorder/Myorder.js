@@ -1,32 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Import for navigation
+import { useNavigate } from "react-router-dom";
 import "../../styles/Orderstyle.css";
 
 const Myorder = () => {
-  const [orders, setOrders] = useState([]); // State to store the user's filtered orders
-  const [userEmail, setUserEmail] = useState(""); // State to store the logged-in user's email
-  const navigate = useNavigate(); 
+  const [orders, setOrders] = useState([]);
+  const [userEmail, setUserEmail] = useState("");
+  const navigate = useNavigate();
 
-  useEffect(() => {   //handling side effects in functional components.
-    // Retrieve the stored email from localStorage, trim spaces, and convert to lowercase for consistency
-    const storedEmail = localStorage.getItem("userEmail")?.trim().toLowerCase();// login.js
-    setUserEmail(storedEmail); // Update state with the stored email
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("userEmail")?.trim().toLowerCase();
+    setUserEmail(storedEmail);
+    console.log("🟢 Logged-in Email:", storedEmail);
 
-    console.log("🟢 Logged-in Email:", storedEmail); // login.js email
+    const allOrders = JSON.parse(sessionStorage.getItem("orderData")) || [];
+    console.log("📦 All Orders in sessionStorage:", allOrders);
 
-    // Retrieve all orders from sessionStorage and parse them into an array
-    const allOrders = JSON.parse(sessionStorage.getItem("orderData")) || [];//Converts the retrieved JSON string back into a JavaScript array of objects.
-    console.log("📦 All Orders in sessionStorage:", allOrders); //order.js email
-
-   
     const userOrders = allOrders.filter(
       (order) => order.userData?.email?.trim().toLowerCase() === storedEmail
     );
 
-    console.log("✅ Filtered Orders for User:", userOrders); 
-    setOrders(userOrders); 
-  }, []); // Runs only once when the component mounts
-
+    console.log("✅ Filtered Orders for User:", userOrders);
+    setOrders(userOrders);
+  }, []);
 
   return (
     <div className="orders-container">
@@ -38,16 +33,12 @@ const Myorder = () => {
         orders.map((order, index) => (
           <div key={index} className="order-box">
             <h3>🧾 Order #{index + 1}</h3>
-            <p>
-              <strong>Email:</strong> {order.userData?.email}
-            </p>
-            <p>
-              <strong>Address:</strong> {order.userData?.address}
-            </p>
-            <p>
-              <strong>Payment Method:</strong>{" "}
-              {order.paymentData?.method || "Not specified"}
-            </p>
+            <p><strong>Email:</strong> {order.userData?.email}</p>
+            <p><strong>Name:</strong> {order.userData?.name}</p>
+            <p><strong>Phone:</strong> {order.userData?.phone}</p>
+            <p><strong>Address:</strong> {order.userData?.address}</p>
+            <p><strong>Payment Method:</strong> {order.paymentData?.method || "Not specified"}</p>
+            <p><strong>Order Date:</strong> {order.orderDate || "Not Available"}</p>
 
             <h4>🛒 Order Summary</h4>
             <table className="orders-table">
@@ -67,24 +58,21 @@ const Myorder = () => {
                     <td>
                       <img src={item.image} alt={item.title} width="50" />
                     </td>
-                    <td>${item.price.toFixed(2)}</td>
+                    <td>${Number(item.price).toFixed(2)}</td>
                     <td>{item.quantity}</td>
-                    <td>${(item.price * item.quantity).toFixed(2)}</td>
+                    <td>${(Number(item.price) * item.quantity).toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-
-            <h3 className="total-amount">Grand Total: ${order.total}</h3>
+            <h3 className="total-amount">Grand Total: ${Number(order.total).toFixed(2)}</h3>
           </div>
         ))
       )}
 
-      {/* ✅ Fixed Navigation Button */}
       <div>
-        <button className="order" onClick={() => navigate("/Menu")}>
-          Done ✅
-        </button>
+        <button className="order" onClick={() => navigate("/Menu")}>New order</button>
+        <button className="home" onClick={() => navigate("/Home")}>Home Page</button>
       </div>
     </div>
   );

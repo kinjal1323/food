@@ -16,6 +16,10 @@ function Login() {
       setError("Please fill in all fields.");
       return;
     }
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long.");
+      return;
+    }
 
     const trimmedEmail = email.trim().toLowerCase(); // Ensure consistency
 
@@ -54,27 +58,39 @@ function Login() {
         
         <form onSubmit={handleSubmit}>
           <div className="input-group">
-            <label className="label-center">Email</label>
+          <h4>Email</h4>
             <input
               type="email"
               className="input-field"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter Name"
+              required
             />
           </div>
 
           <div className="input-group">
-            <label className="label-center">Password</label>
+          <h4>Password</h4>
             <input
               type="password"
               className="input-field"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter Password"
+              required
             />
           </div>
 
           <button type="submit" className="login-button">
             Click for Login
+          </button>
+
+          <button 
+            type="button" 
+            className="signup-button" 
+            onClick={() => navigate("/signup")} // Fixed navigation
+          >
+            Click for Signup
           </button>
         </form>
       </div>

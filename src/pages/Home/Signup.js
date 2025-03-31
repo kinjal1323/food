@@ -26,6 +26,10 @@ const Signup = () => {
       setError("Passwords do not match.");
       return;
     }
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long.");
+      return;
+    }
 
     // Save user credentials to localStorage
     const users = JSON.parse(localStorage.getItem("users")) || []; // Retrieve existing users or initialize empty array
@@ -53,34 +57,38 @@ const Signup = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="input-group">
-            <label className="label-center">Email</label>
+          <h4>Email</h4>
             <input
               type="email"
               className="input-field"
               value={email}
               onChange={(e) => setEmail(e.target.value)} // Update email state on change
+              placeholder="Enter Email"
               required
             />
           </div>
 
           <div className="input-group">
-            <label className="label-center">Password</label>
+            <h4>Password</h4>
             <input
               type="password"
               className="input-field"
               value={password}
               onChange={(e) => setPassword(e.target.value)} // Update password state on change
+              placeholder="Enter Password"
               required
             />
           </div>
 
           <div className="input-group">
-            <label className="label-center">Confirm Password</label>
-            <input
+          <h4>confirmPassword</h4>
+             <input
               type="password"
+            
               className="input-field"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)} // Update confirm password state on change
+              placeholder="Enter Confirm Password"
               required
             />
           </div>

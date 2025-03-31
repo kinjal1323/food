@@ -41,9 +41,7 @@ function Section2() {
                 Eating good food provides numerous benefits, including improved digestion, 
                 increased energy, better mood, and a happy and healthy life.
               </p>
-              <Link to="/Login" className="btn order_now btn_red">
-                Explore Full Menu
-              </Link>
+              
             </Col>
           </Row>
         </Container>

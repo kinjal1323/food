@@ -13,6 +13,8 @@ function Confirm() {
   const cart = location.state?.cart || [];
   const total = Number(location.state?.total || 0).toFixed(2);
 
+  console.log("🛒 Cart Items:", cart);
+
   // Function to pass order data to Orders.js
   const handleDone = () => {
     const newOrder = {
@@ -46,13 +48,13 @@ function Confirm() {
     navigate("/Myorder");
   };
   
-  
   return (
     <>
       <Header />
       <div className="con">
         <div className="confirm-container">
-          <h2>🧾 Order Confirmation</h2>
+          <center>         
+             <h2>🧾 Order Confirmation</h2>
           {/* FLEX CONTAINER FOR CUSTOMER + PAYMENT DETAILS */}
           <div className="details-container">
             <div className="customer-details">
@@ -88,9 +90,9 @@ function Confirm() {
                     <td>
                       <img src={item.image} alt={item.title} width="50" />
                     </td>
-                    <td>${item.price.toFixed(2)}</td>
+                    <td>${Number(item.price).toFixed(2)}</td>
                     <td>{item.quantity}</td>
-                    <td>${(item.price * item.quantity).toFixed(2)}</td>
+                    <td>${(Number(item.price) * item.quantity).toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -98,6 +100,7 @@ function Confirm() {
           )}
           <h2 className="total-amount">Grand Total: <span>${total}</span></h2>
           <button className="order" onClick={handleDone}>Done ✅</button>
+          </center>
         </div>
       </div>
       <br/>

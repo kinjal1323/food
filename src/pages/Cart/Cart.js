@@ -1,33 +1,37 @@
-import React from "react"; // Needed to create the functional component
-import { useCart } from "../../contexts/CartContext"; // Gives access to CartContext (global cart state).
-import { useNavigate } from "react-router-dom"; // React Router hook for navigation.
-import "../../styles/Cartstyle.css"; // Importing styles for the cart component.
+import React from "react"; 
+import { useCart } from "../../contexts/CartContext"; 
+import { useNavigate } from "react-router-dom"; 
+import "../../styles/Cartstyle.css"; 
 
 function Cart() {
-  const { cart, removeFromCart, quantities, updateQuantity } = useCart(); // Destructuring cart context
-  const navigate = useNavigate(); // Hook for navigation
+  const { cart, removeFromCart, quantities, updateQuantity } = useCart(); 
+  const navigate = useNavigate(); 
 
   // Function to handle quantity change
   const handleQuantityChange = (uniqueId, value) => {
-    if (value < 1) return; // Prevents quantity from going below 1
-    updateQuantity(uniqueId, value); // Updates quantity in CartContext
+    if (value < 1) return; // Prevent negative or zero values
+    updateQuantity(uniqueId, value);
   };
 
-  // Function to handle item removal from cart
+  // Function to handle item removal
   const handleRemoveItem = (uniqueId) => {
     removeFromCart(uniqueId);
   };
 
-  // Calculate total price of items in the cart
+  // Calculate total price
   const totalPrice = cart.reduce((acc, item, index) => {
     const uniqueId = `${item.id}-${index}`;
-    return acc + item.price * (quantities[uniqueId] || 1);
+    const price = Number(item.price) || 0; // Ensure price is a number
+    return acc + price * (quantities[uniqueId] || 1);
   }, 0);
 
-  // Function to handle payment and navigate to confirmation page
+  // Debugging: Log cart data
+  console.log("Cart Items:", cart);
+
+  // Function to handle checkout
   const handlePayment = () => {
     if (totalPrice === 0) {
-      alert("Your cart is empty!"); // Alert if cart is empty
+      alert("Your cart is empty!"); 
       return;
     }
 
@@ -36,11 +40,11 @@ function Cart() {
       const uniqueId = `${item.id}-${index}`;
       return {
         ...item,
-        quantity: quantities[uniqueId] || 1, // Include quantity
+        quantity: quantities[uniqueId] || 1, 
       };
     });
 
-    // Navigate to Userdata page with cart and total price
+    // Navigate to Userdata page with cart details
     navigate("/Userdata", {
       state: { cart: selectedCart, total: Number(totalPrice.toFixed(2)) },
     });
@@ -50,7 +54,7 @@ function Cart() {
     <div className="cart-container">
       <h2>Your Cart</h2>
       <br />
-      {cart.length === 0 ? ( // Check if cart is empty
+      {cart.length === 0 ? ( 
         <>
           <p>Your cart is empty.</p>
           <button className="Menu-button" onClick={() => navigate("/Menu")}>
@@ -62,11 +66,12 @@ function Cart() {
           <ul>
             {cart.map((item, index) => {
               const uniqueId = `${item.id}-${index}`;
+              const price = Number(item.price) || 0; // Ensure price is a number
               return (
                 <li key={uniqueId} className="cart-item">
                   <img src={item.image} alt={item.title} width="200" />
                   <span>{item.title}</span>
-                  <span>${item.price.toFixed(2)}</span>
+                  <span>${price.toFixed(2)}</span> 
                   <input
                     type="number"
                     min="1"
@@ -91,4 +96,5 @@ function Cart() {
     </div>
   );
 }
+
 export default Cart;
