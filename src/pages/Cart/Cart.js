@@ -75,6 +75,7 @@ function Cart() {
                   <input
                     type="number"
                     min="1"
+                    max="30"
                     value={quantities[uniqueId] || 1}
                     onChange={(e) =>
                       handleQuantityChange(uniqueId, Number(e.target.value))

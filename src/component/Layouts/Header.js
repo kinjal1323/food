@@ -46,7 +46,7 @@ const Header = () => {
               <Nav.Link as={Link} to="/Home"  onClick={() => window.scrollTo(0, 400)}>Menu</Nav.Link>
               <Nav.Link as={Link} to="/about">About</Nav.Link>
               <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
-              <Nav.Link as={Link} to="/cart">🛒</Nav.Link>
+        
             </Nav>
           </Navbar.Collapse>
         </Container>

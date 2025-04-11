@@ -1,38 +1,46 @@
-import { useState } from "react"; // Import useState hook for managing form input state
-import { useNavigate } from "react-router-dom"; // Import useNavigate for redirecting users after signup
-import "../../styles/Signupstyle.css"; // Import external CSS file for styling
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../../styles/Signupstyle.css";
 
 const Signup = () => {
-  // State variables to store user input
-  const [email, setEmail] = useState(""); // Stores email input
-  const [password, setPassword] = useState(""); // Stores password input
-  const [confirmPassword, setConfirmPassword] = useState(""); // Stores confirm password input
-  const [error, setError] = useState(""); // Stores error messages for validation
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const navigate = useNavigate(); // Initialize navigate function for redirection
+  const navigate = useNavigate();
 
-  // Function to handle form submission
+  const isValidEmail = (email) => {
+    // Basic email format validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z]+\.(com|net|org|edu|info|in|COM|NET|ORG|EDU|INFO|IN)$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
-    setError(""); // Reset error messages before validation
+    e.preventDefault();
+    setError("");
 
     if (!email || !password || !confirmPassword) {
       setError("Please fill in all fields.");
       return;
     }
 
-    // Validation: Check if passwords match
+    if (!isValidEmail(email)) {
+      setError("Invalid email format.");
+      return;
+    }
+
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
       return;
     }
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters long.");
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long.");
       return;
     }
 
-    // Save user credentials to localStorage
-    const users = JSON.parse(localStorage.getItem("users")) || []; // Retrieve existing users or initialize empty array
+    const users = JSON.parse(localStorage.getItem("users")) || [];
     const userExists = users.find((user) => user.email === email);
 
     if (userExists) {
@@ -42,27 +50,24 @@ const Signup = () => {
 
     users.push({ email, password });
     localStorage.setItem("users", JSON.stringify(users));
-
     console.log("Signup successful with", { email, password });
-
     navigate("/login");
   };
 
   return (
-    <div className="signup-container"> {/* Main container for the signup form */}
-      <div className="signup-box"> {/* Box containing the signup form */}
-        <h2 className="signup-title">Sign Up</h2> {/* Signup title */}
-
+    <div className="signup-container">
+      <div className="signup-box">
+        <h2 className="signup-title">Sign Up</h2>
         {error && <p className="error-message">{error}</p>}
 
         <form onSubmit={handleSubmit}>
           <div className="input-group">
-          <h4>Email</h4>
+            <h4>Email</h4>
             <input
               type="email"
               className="input-field"
               value={email}
-              onChange={(e) => setEmail(e.target.value)} // Update email state on change
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter Email"
               required
             />
@@ -74,26 +79,27 @@ const Signup = () => {
               type="password"
               className="input-field"
               value={password}
-              onChange={(e) => setPassword(e.target.value)} // Update password state on change
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter Password"
               required
             />
           </div>
 
           <div className="input-group">
-          <h4>confirmPassword</h4>
-             <input
+            <h4>Confirm Password</h4>
+            <input
               type="password"
-            
               className="input-field"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)} // Update confirm password state on change
-              placeholder="Enter Confirm Password"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirm Password"
               required
             />
           </div>
 
-          <button type="submit" className="signup-button">Sign Up</button>
+          <button type="submit" className="signup-button">
+            Sign Up
+          </button>
         </form>
       </div>
     </div>

@@ -38,7 +38,7 @@ const Myorder = () => {
             <p><strong>Phone:</strong> {order.userData?.phone}</p>
             <p><strong>Address:</strong> {order.userData?.address}</p>
             <p><strong>Payment Method:</strong> {order.paymentData?.method || "Not specified"}</p>
-            <p><strong>Order Date:</strong> {order.orderDate || "Not Available"}</p>
+        
 
             <h4>🛒 Order Summary</h4>
             <table className="orders-table">
